@@ -21,7 +21,7 @@ export class ItemsResolver {
   }
 
   @Query(() => Item, { name: 'item' })
-  async findOne(@Args() { id }: IdentificadorArgs): Promise<Item> {
+  async findOne( @Args() { id }: IdentificadorArgs ): Promise<Item> {
     return this.itemsService.findOne({ id });
   }
 
@@ -33,7 +33,7 @@ export class ItemsResolver {
   }
 
   @Mutation(() => Item)
-  removeItem(@Args('id', { type: () => Int }) id: number) {
-    return this.itemsService.remove(id);
+  removeItem( @Args() { id }: IdentificadorArgs ): Promise<Item> {
+    return this.itemsService.remove({ id });
   }
 }
