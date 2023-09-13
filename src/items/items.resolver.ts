@@ -12,7 +12,7 @@ export class ItemsResolver {
   async createItem(
     @Args('createItemInput') createItemInput: CreateItemInput
   ): Promise<Item> {
-    return this.itemsService.create(createItemInput);
+    return this.itemsService.create( createItemInput );
   }
 
   @Query(() => [ Item ], { name: 'items' })
@@ -26,8 +26,10 @@ export class ItemsResolver {
   }
 
   @Mutation(() => Item)
-  updateItem(@Args('updateItemInput') updateItemInput: UpdateItemInput) {
-    return this.itemsService.update(updateItemInput.id, updateItemInput);
+  updateItem(
+    @Args('updateItemInput') updateItemInput: UpdateItemInput
+  ): Promise<Item> {
+    return this.itemsService.update( updateItemInput.id, updateItemInput );
   }
 
   @Mutation(() => Item)

@@ -32,8 +32,12 @@ export class ItemsService {
     return item;
   }
 
-  update(id: number, updateItemInput: UpdateItemInput) {
-    return `This action updates a #${id} item`;
+  async update( id: string, updateItemInput: UpdateItemInput ): Promise<Item> {
+    const item = await this.itemsRepository.preload( updateItemInput );
+
+    if( !item ) throw new NotFoundException(`El item con el id: ${ updateItemInput.id } no fue encontrado.`);
+    
+    return this.itemsRepository.save( item );
   }
 
   remove(id: number) {
