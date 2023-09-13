@@ -1,4 +1,5 @@
 import { ObjectType, Field, Float, ID } from '@nestjs/graphql';
+import { IsOptional } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'items' })
@@ -16,9 +17,9 @@ export class Item {
   @Field( () => Float )
   quantity: number;
 
-  @Column()
-  @Field( () => String )
-  quantityUnits: string; // g, ml, kg, ton
+  @Column({ nullable: true })
+  @Field( () => String, { nullable: true } )
+  quantityUnits?: string; // g, ml, kg, ton
 
   // store
   // user
