@@ -2,6 +2,7 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { ItemsService } from './items.service';
 import { Item } from './entities/item.entity';
 import { CreateItemInput, UpdateItemInput } from './dto/inputs';
+import { IdentificadorArgs } from './dto/args';
 
 @Resolver(() => Item)
 export class ItemsResolver {
@@ -20,8 +21,8 @@ export class ItemsResolver {
   }
 
   @Query(() => Item, { name: 'item' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.itemsService.findOne(id);
+  async findOne(@Args() { id }: IdentificadorArgs): Promise<Item> {
+    return this.itemsService.findOne({ id });
   }
 
   @Mutation(() => Item)
